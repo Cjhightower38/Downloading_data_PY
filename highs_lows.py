@@ -8,8 +8,12 @@ with open(filename) as f:
 	reader = csv.reader(f)
 	header_row = next(reader)
 	
-	# Removed print(header_row) in exchange of print(ind, col_header)
-	# for more detail. enumerate gives the index of each item.
-	for index, column_header in enumerate(header_row):
-		print(index, column_header)
 	
+# Getting high temperatures. Created empty dictionary to store highs, used
+# a for loop to interate through each item and then appeneded each high 
+# row 5.Which we were able to see from using the enumerate()
+	highs = []
+	for row in reader:
+		highs.append(row[5])
+		
+	print(highs)
