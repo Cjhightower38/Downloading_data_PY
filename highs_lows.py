@@ -9,11 +9,13 @@ with open(filename) as f:
 	header_row = next(reader)
 	
 	
-# Getting high temperatures. Created empty dictionary to store highs, used
-# a for loop to interate through each item and then appeneded each high 
-# row 5.Which we were able to see from using the enumerate()
+# Getting high temperatures. As before created the empty dictionary,
+# iterated through the items, used the variable high to retrive the
+# interger format and then appened the high variable to the emapty
+# dictionary.
 	highs = []
 	for row in reader:
-		highs.append(row[5])
+		high = int(row[5])
+		highs.append(high)
 		
 	print(highs)
