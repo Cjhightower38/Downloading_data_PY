@@ -1,4 +1,5 @@
-# Import csv module and matplotlib module
+# Import csv,matplotlib, and datetime modules.
+from datetime import datetime
 from matplotlib import pyplot as plt
 
 import csv
@@ -11,12 +12,16 @@ with open(filename) as f:
 	header_row = next(reader)
 	
 	
-# Getting high temperatures. As before created the empty dictionary,
-# iterated through the items, used the variable high to retrive the
-# interger format and then appened the high variable to the emapty
-# dictionary.
-	highs = []
+# Getting high temperatures and dates. As before created the empty 
+# dictionary, this time adding an additional dictionary for dates
+# iterated through the items, used the variables high/dates to retrive
+# the interger format and then appened the high/dates variable to the 
+# empty dictionary.
+	dates, highs = [], []
 	for row in reader:
+		current_date = datetime.strptime(row[2], '%Y-%m-%d')
+		dates.append(current_date)
+		
 		high = int(row[5])
 		highs.append(high)
 		
@@ -24,11 +29,14 @@ with open(filename) as f:
 	
 # Using pyplot to plot the data
 fig = plt.figure(dpi=128, figsize=(10, 6))
-plt.plot(highs, c='red')
+plt.plot(dates, highs, c='red')
 
 # Formatting plot to include title, x and y lables, and tick parameters.
+# The call to fig.autofmt_xdate() drwas the labels diagonally to
+# prevent overlapping.
 plt.title('Daily high temperatures for the year 2018', fontsize=24)
 plt.xlabel('', fontsize=16)
+fig.autofmt_xdate()
 plt.ylabel('Temperature(F)', fontsize=16)
 plt.tick_params(axis='both', which='major', labelsize=16)
 
