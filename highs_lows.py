@@ -12,12 +12,12 @@ with open(filename) as f:
 	header_row = next(reader)
 	
 	
-# Getting high temperatures and dates. As before created the empty 
-# dictionary, this time adding an additional dictionary for dates
+# Getting high and low temperatures with months. As before created the
+# empty dictionary, this time adding an additional dictionary for dates
 # iterated through the items, used the variables high/dates to retrive
 # the interger format and then appened the high/dates variable to the 
 # empty dictionary.
-	dates, highs = [], []
+	dates, highs, lows = [], [], []
 	for row in reader:
 		current_date = datetime.strptime(row[2], '%Y-%m-%d')
 		dates.append(current_date)
@@ -25,16 +25,20 @@ with open(filename) as f:
 		high = int(row[5])
 		highs.append(high)
 		
+		low = int(row[6])
+		lows.append(low)
+		
 	print(highs)
 	
 # Using pyplot to plot the data
 fig = plt.figure(dpi=128, figsize=(10, 6))
 plt.plot(dates, highs, c='red')
+plt.plot(dates, lows, c='blue')
 
 # Formatting plot to include title, x and y lables, and tick parameters.
 # The call to fig.autofmt_xdate() drwas the labels diagonally to
 # prevent overlapping.
-plt.title('Daily high temperatures for the year 2018', fontsize=24)
+plt.title('Monthly highs and lows temperatures for the year 2018', fontsize=24)
 plt.xlabel('', fontsize=16)
 fig.autofmt_xdate()
 plt.ylabel('Temperature(F)', fontsize=16)
