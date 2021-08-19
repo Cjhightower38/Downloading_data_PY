@@ -13,20 +13,26 @@ with open(filename) as f:
 	
 	
 # Getting high and low temperatures with months. As before created the
-# empty dictionary, this time adding an additional dictionary for dates
+# empty lists , this time adding an additional lists for dates
 # iterated through the items, used the variables high/dates to retrive
 # the interger format and then appened the high/dates variable to the 
-# empty dictionary.
+# empty lists. Adding the try block to attempt to get the dates,
+# highs, and lows. The except block throws ValueError if any info is 
+# missing and prints the date and error message. Finally the else block
+# will append to the appropriate list granted there is no error.
 	dates, highs, lows = [], [], []
 	for row in reader:
-		current_date = datetime.strptime(row[2], '%Y-%m-%d')
-		dates.append(current_date)
-		
-		high = int(row[5])
-		highs.append(high)
-		
-		low = int(row[6])
-		lows.append(low)
+		try:
+			current_date = datetime.strptime(row[2], '%Y-%m-%d')
+			high = int(row[4])
+			low = int(row[5])
+		except ValueError:
+			print(current_date, 'missing data')
+		else:
+			dates.append(current_date)
+			highs.append(high)
+			lows.append(low)
+				
 		
 	print(highs)
 	
@@ -42,8 +48,7 @@ plt.fill_between(dates, highs, lows, facecolor = 'blue', alpha = 0.1)
 # Formatting plot to include title, x and y lables, and tick parameters.
 # The call to fig.autofmt_xdate() drwas the labels diagonally to
 # prevent overlapping.
-plt.title('Monthly highs and lows temperatures for the year 2018',
-    fontsize=24)
+plt.title('Monthly highs and lows temperatures for the year 2018\nDeath Valley, Ca', fontsize=24)
 plt.xlabel('', fontsize=16)
 fig.autofmt_xdate()
 plt.ylabel('Temperature(F)', fontsize=16)
