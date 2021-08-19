@@ -13,10 +13,10 @@ with open(filename) as f:
 	
 	
 # Getting high and low temperatures with months. As before created the
-# empty dictionary, this time adding an additional dictionary for dates
+# empty lists, this time adding an additional lists for dates
 # iterated through the items, used the variables high/dates to retrive
 # the interger format and then appened the high/dates variable to the 
-# empty dictionary.
+# empty lists.
 	dates, highs, lows = [], [], []
 	for row in reader:
 		current_date = datetime.strptime(row[2], '%Y-%m-%d')
